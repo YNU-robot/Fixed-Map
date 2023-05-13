@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package image_service;
+
+message Detect {
+  bytes image_data = 1;
+}
+
+message Response {
+  repeated string results = 1;
+}
+
+service ImageDetector {
+  rpc DetectImage(Detect) returns (Response) {}
+}
