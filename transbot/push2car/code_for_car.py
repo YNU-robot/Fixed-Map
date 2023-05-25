@@ -205,8 +205,9 @@ def scanLR(src: np.ndarray, step=1, visual=False):
     middle_line_mask = np.zeros((src.shape[0], src.shape[1]), dtype=np.uint8)
     # 提取黄色部分
     # 黄色的值范围
-    lower_hsv = np.array([23, 43, 46])
-    upper_hsv = np.array([34, 255, 255])
+    # lower_hsv = np.array([23, 43, 46])
+    lower_hsv = np.array([20, 30, 30])
+    upper_hsv = np.array([50, 255, 255])
 
     img2 = cv2.cvtColor(src, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(img2, lower_hsv, upper_hsv)

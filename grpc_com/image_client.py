@@ -21,6 +21,7 @@ import grpc
 from v3 import image_service_pb2
 from v3 import image_service_pb2_grpc
 import numpy as np
+import time
 
 
 def run():
@@ -28,20 +29,22 @@ def run():
     # used in circumstances in which the with statement does not fit the needs
     # of the code.
     print("Will try to greet world ...")
-    with grpc.insecure_channel('localhost:50051') as channel:
+    with grpc.insecure_channel('100.77.102.113:50005') as channel:
         stub = image_service_pb2_grpc.ImageDetectorStub(channel)
-
         # load image
-        image = np.random.randint(0, 255, size=(224, 224, 3), dtype=np.uint8)
+        image = np.random.randint(0, 255, size=(640, 480, 3), dtype=np.uint8)
         # convert the image to a byte sequence and create the request message
+        start_time = time.time()
         image_data = image.tobytes()
         request = image_service_pb2.Detect(image_data=image_data)
 
         # Call the DetectImage method and print the response
         response = stub.DetectImage(request)
         print(response.results)
+        print('time:', time.time() - start_time)
+
 
 
 if __name__ == '__main__':
-    logging.basicConfig()
+    # logging.basicConfig()
     run()
